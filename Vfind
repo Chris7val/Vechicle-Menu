@@ -1,0 +1,34 @@
+#!/bin/bash
+
+
+#=======================================================
+# Script Name: Vfind
+# By:          C.V
+# Date:        4/18/22
+# Purpose:     Searches for a specified records in the 
+#              vehicle_data file
+#=======================================================
+trap "rm temp 2> /dev/null; exit" 0 1 2 3
+vehiclefile=./vehicle_data
+
+clear
+
+tput cup 2 0 ; echo "Enter pattern to search for:"
+
+tput cup 2 29 ; read pat
+
+while test "$pat" != ""
+do
+if grep "$pat" $vehiclefile > ./temp
+ then
+tput cup 4 0 ; echo "Record(s) found:"
+
+   tput cup 5 0 ; tr ':' ' ' < ./temp
+   else 
+tput cup 4 0 ; echo "No record found"
+fi
+break
+done
+tput cup 20 0 ; echo "Press Enter to continue"
+tput cup 20 24; read continue
+ 

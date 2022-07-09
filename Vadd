@@ -1,0 +1,116 @@
+#!/bin/bash
+
+#======================================================================
+#Script Name: Vadd
+#BY:          C.V
+#Date:        April 15 2022
+#purpose:     A shell script to add new vehicles to vehicle_data file.
+#======================================================================
+trap "rm temp 2> /dev/null; exit" 0 1 2 3
+
+vehiclefile=./vehicle_data
+
+looptest=y
+
+while test "$looptest"="y"
+
+do
+clear
+  tput cup 2 20; echo "Enter Vehicle Information"
+  tput cup 3 19; echo "==========================="
+  tput cup 6 19; echo "Vehicle ID :"
+  tput cup 7 19; echo "Year       :"
+  tput cup 8 19; echo "Make       :"
+  tput cup 9 19; echo "Model      :"
+  tput cup 10 19; echo "Mileage    :"
+  tput cup 11 19; echo "Price      :"
+  tput cup 19 0; echo "Add Another? (y)es or (q)uit: "
+
+tput cup 6 32; read VID
+
+if test $VID = "q"
+    then
+        clear ; exit
+fi
+
+while grep "$VID" $vehiclefile >./temp
+
+do
+       tput cup 22 0; echo "This ID is already in the file. "
+       tput cup 23 0; tr ':' ' ' < ./temp
+       tput cup 24 0; echo "Press ENTER to continue..."
+        read promt
+       tput cup 6 32; echo "               "
+       tput cup 6 32; read VID
+       if test $VID= "q"
+      then 
+            clear ; exit
+fi
+done
+      tput cup 7 32; read year
+while test "$year" = "-"
+ do 
+      tput cup 6 32; echo "       "
+      tput cup 6 32; read VID
+     if test "$VID" = "q"
+     then 
+        clear ; exit
+      fi
+      tput cup 8 32; read make
+    while test "$make" = "-"
+do 
+      tput cup 7 32; echo "       "
+      tput cup 7 32; read year
+     if test "$year" = "q"
+     then
+       clear ; exit
+    fi
+    tput cup 8 32; read make
+done
+     tput cup 9 32; read model
+   while test "$model" = "-"
+do  
+    tput cup 8 32; echo "            "
+    tput cup 8 32; read make
+    if test "$make" = "q"
+    then
+       clear ; exit
+    fi
+   tput cup 9 32; read model
+done
+
+    tput cup 10 32; read mileage
+   while test "$mileage" = "-"
+do 
+    tput cup 9 32; echo "            "
+    tput cup 9 32; read model
+    if test "$model" = "q"
+    then 
+       clear ; exit
+    fi
+    tput cup 10 32; read mileage
+done
+    tput cup 11 32; read price
+    while test "$price" = "-"
+do
+    tput cup 10 32; echo "       "
+    tput cup 10 32; read mileage
+    if test "$mileage" - "q"
+ then
+       clear; exit
+     fi 
+     tput cup 11 32; read price
+done
+    if test "$VID" || "$year" || "$model" || "$make" || "$mileage" || "$price" != ""
+       then 
+     echo "$VID:$year:$make:$model:$mileage:$price" >> $vehiclefile
+    else 
+      echo "No field can be empty. Record is not added."
+   fi
+ 
+    tput cup 19  33; read looptest
+  if test "$looptest" = "q"
+       then 
+          clear; exit
+     fi
+done

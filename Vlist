@@ -1,0 +1,58 @@
+#!/bin/bash
+
+
+#=========================================================
+# Script Name:  Vlist
+# By:           C.V
+# Date:         4/11/2022
+# Purpose:      Use awk to format colon-seperate fields
+#		in a flat file and display to the screen
+#Command Line:  Vlist
+#=========================================================
+clear
+
+tput cup 2 20; echo "Vehicle Information"
+tput cup 3 19; echo "========================"
+tput cup 6 19; echo "Sort by:"
+tput cup 7 24; echo "1   - Year"
+tput cup 8 24; echo "2   - Make"
+tput cup 9 24; echo "3   - Mileage"
+tput cup 10 24; echo "4   - Price"
+tput cup 11 24; echo "Other key - ID"
+tput cup 13 24; echo "Enter your choice:"
+
+tput cup 13 42; read choice
+ . functions  
+clear
+tput cup 2 20; echo "Vehicle Information"
+tput cup 3 19; echo "========================"
+tput cup 6 0; echo "Vehicle_ID"
+tput cup 6 17; echo "Year"
+tput cup 6 25; echo "Make"
+tput cup 6 41; echo "Model"
+tput cup 6 57; echo "Mileage"
+tput cup 6 73; echo "Price"
+tput cup 7  0; echo " "
+  if [ "$choice" = "1" ]; then
+sort_year > sorted_vehicle
+awk -F: '{printf "%-10s\t %-4d\t %-9s\t %-7s\t %-7d\t %-7d\n",$1,$2,$3,$4,$5,$6}' sorted_vehicle
+
+  elif [ "$choice" = "2" ]; then
+sort_make > sorted_vehicle
+awk -F: '{printf "%-10s\t %-4d\t %-9s\t %-7s\t %-7d\t %-7d\n",$1,$2,$3,$4,$5,$6}' sorted_vehicle
+
+  elif [ "$choice" = "3" ]; then
+sort_mileage > sorted_vehicle
+awk -F: '{printf "%-10s\t %-4d\t %-9s\t %-7s\t %-7d\t %-7d\n",$1,$2,$3,$4,$5,$6}' sorted_vehicle
+
+  elif [ "$choice" = "4" ]; then
+sort_price > sorted_vehicle
+awk -F: '{printf "%-10s\t %-4d\t %-9s\t %-7s\t %-7d\t %-7d\n",$1,$2,$3,$4,$5,$6}' sorted_vehicle
+   else 
+sort_ID > sorted_vehicle
+ awk -F: '{printf "%-10s\t %-4d\t %-9s\t %-7s\t %-7d\t %-7d\n",$1,$2,$3,$4,$5,$6}' sorted_vehicle
+fi
+tput cup 20 0; echo "The total number of records:" 
+tput cup 20 28; cat sorted_vehicle | wc -l
+tput cup 22 0; echo "Press ENTER to continue"
+tput cup 22 24; read prompt

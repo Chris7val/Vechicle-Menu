@@ -1,0 +1,31 @@
+#!/bin/bash
+
+
+#===========================================================
+#Script Name:		Vehicle Inventory Mangement Menu
+#By: 			C.V
+#Date:			4/11/2022
+#Purpose:		A menu for Vehicle records
+#===========================================================
+loop=y
+while [ "$loop" = y ]
+do
+  clear
+  tput cup 3 12; echo "Vehicle Inventory Mangement Menu"
+  tput cup 4 12; echo "================================"
+  tput cup 6 9;  echo "L - List Records"
+  tput cup 7 9;  echo "A - Add Records"
+  tput cup 8 9;  echo "F - Find Records"
+  tput cup 9 9;  echo "D - Delete Records"
+  tput cup 10 9; echo "Q - Quit"
+  tput cup 13 9; echo "Enter your choice:"
+  tput cup 13 27; read choice  || continue
+case $choice in 
+[Aa]) ./Vadd ;;
+[Ll]) ./Vlist ;;
+[Ff]) ./Vfind ;;
+[Dd]) ./Vdel ;;
+[Qq]) clear ; exit ;;
+ *) tput cup 20 4; echo "Invalid option"; read choice ;;
+esac
+done

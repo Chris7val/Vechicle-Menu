@@ -1,0 +1,22 @@
+#!/bin/bash
+
+sort_ID()
+{
+  sort -k 1n -t: vehicle_data
+}
+sort_year()
+{
+  sort -k 2n -t: vehicle_data
+}
+sort_make()
+{
+  sort -k 3 -t: vehicle_data
+}
+sort_mileage()
+{
+  sort -k 5n -t: vehicle_data
+}
+sort_price()
+{
+  sort -k 6n -t: vehicle_data
+}

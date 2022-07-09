@@ -1,0 +1,40 @@
+#!/bin/bash
+
+#====================================================
+# Script Name:	Vdel
+# By:		C.V
+# Date:		4/18/22
+# Purpose:	Deletes records in the vehicle_data
+#		file.
+#=====================================================
+trap "rm temp 2> /dev/null; exit" 0 1 2 3
+vehiclefile=./vehicle_data
+clear
+tput cup 2 0; echo "Enter pattern to delete:"
+tput cup 2 26; read pat
+while test "$pat" != ""
+do
+if  grep "$pat"  $vehiclefile > ./temp
+ then
+tput cup 4 0; echo "Record(s) found:"
+tput cup 7 0; tr ':' ' ' < ./temp
+else
+tput cup 4 0; echo "No records found"
+fi
+if  grep "$pat"  $vehiclefile > ./temp
+then
+tput cup 9 0; echo "Want to delete these records? (y)es or (n)o:"
+tput cup 9 44; read answer
+if test $answer = "y"
+    then
+   sed /$pat/d $vehiclefile > f
+ cp f $vehiclefile
+ rm f
+
+fi
+fi
+break
+done
+
+tput cup 15 0 ; echo "Press ENTER to continue"
+tput cup 15 25 ; read continue
